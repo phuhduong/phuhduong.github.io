@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+
+<Layout title="Contact">
+  <section class="text-page">
+    <p class="copy-title">Email</p>
+    <p class="contact-line">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+    <p class="copy-title">GitHub</p>
+    <p class="contact-line">
+      <a href={site.github} target="_blank" rel="noopener noreferrer">github.com/phuhduong</a>
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .text-page {
+    width: var(--content);
+    margin: 0 auto;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .copy-title {
+    margin: 0 0 1.25rem;
+    font-weight: 400;
+  }
+
+  .copy-title:not(:first-child) {
+    margin-top: 2.5rem;
+  }
+
+  .contact-line {
+    margin: 0;
+  }
+</style>

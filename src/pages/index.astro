@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EditorialLayout from '../components/EditorialLayout.astro';
+import { about, site } from '../data/site';
+---
+
+<Layout title={site.name}>
+  <EditorialLayout>
+    <div slot="visual" class="visual-panel">
+      <img src="/portrait.jpg" alt="Phu Duong" />
+    </div>
+    <div class="copy-body">
+      {about.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </EditorialLayout>
+</Layout>

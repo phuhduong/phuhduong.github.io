@@ -1,0 +1,129 @@
+---
+interface Props {
+  pagination?: {
+    current: number;
+    total: number;
+    prevHref?: string;
+    nextHref?: string;
+  };
+}
+
+const { pagination } = Astro.props;
+---
+
+<section class="editorial">
+  <div class="editorial-visual">
+    <slot name="visual" />
+    {
+      pagination && (
+        <p class="editorial-pagination">
+          {pagination.current} of {pagination.total}
+          {pagination.nextHref ? (
+            <a href={pagination.nextHref} aria-label="Next project">
+              {' '}→
+            </a>
+          ) : (
+            <span aria-hidden="true"> →</span>
+          )}
+        </p>
+      )
+    }
+  </div>
+  <div class="editorial-copy">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .editorial {
+    width: var(--content);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--col-gap);
+    align-items: start;
+  }
+
+  .editorial-visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .editorial-visual :global(.visual-panel) {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 3 / 4;
+    background: var(--panel);
+    display: block;
+  }
+
+  .editorial-visual :global(.visual-panel img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .editorial-pagination {
+    margin: 1.25rem 0 0;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .editorial-pagination a {
+    text-decoration: none;
+  }
+
+  .editorial-pagination a:hover,
+  .editorial-pagination a:focus-visible {
+    text-decoration: underline;
+  }
+
+  .editorial-copy {
+    padding-top: 0;
+    font-size: 12px;
+  }
+
+  .editorial-copy :global(.copy-title) {
+    margin: 0 0 1.25rem;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  .editorial-copy :global(.copy-body p) {
+    margin: 0 0 1.25rem;
+  }
+
+  .editorial-copy :global(.copy-body p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .editorial-copy :global(.copy-note) {
+    margin: 1.25rem 0 0;
+  }
+
+  .editorial-copy :global(.copy-footer) {
+    margin-top: 2.5rem;
+  }
+
+  .editorial-copy :global(.copy-footer a) {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 720px) {
+    .editorial {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .editorial-visual :global(.visual-panel) {
+      max-width: 220px;
+    }
+  }
+</style>

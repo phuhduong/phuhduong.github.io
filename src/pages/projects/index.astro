@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { projects } from '../../data/projects';
+---
+
+<Layout title="Projects">
+  <section class="archive-page">
+    <p class="archive-heading">archive</p>
+    <ul class="archive-list">
+      {
+        projects.map((project) => (
+          <li class="archive-item">
+            <div class="archive-row">
+              <span class="archive-id">{project.id}</span>
+              <span class="archive-title">{project.title}</span>
+            </div>
+            <p class="archive-desc">{project.description}</p>
+            {
+              project.notes?.map((note) => (
+                <p class="archive-note">{note}</p>
+              ))
+            }
+            {
+              project.href && (
+                <p class="archive-link">
+                  <a href={project.href} target="_blank" rel="noopener noreferrer">
+                    {project.linkLabel ?? 'view'}
+                  </a>
+                </p>
+              )
+            }
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .archive-page {
+    width: var(--content);
+    margin: 0 auto;
+    font-size: 12px;
+  }
+
+  .archive-heading {
+    margin: 0 0 2rem;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .archive-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .archive-item {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .archive-item:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .archive-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 1rem 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .archive-desc {
+    margin: 0 0 0 3.5rem;
+    max-width: 36rem;
+  }
+
+  .archive-note,
+  .archive-link {
+    margin: 0.75rem 0 0 3.5rem;
+  }
+
+  .archive-link a {
+    text-transform: lowercase;
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+import { site, nav } from '../data/site';
+
+const pathname = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') return pathname === '/' || pathname === '';
+  if (href === '/projects/') return pathname === '/projects/' || pathname === '/projects';
+  return pathname.startsWith(href);
+}
+---
+
+<header class="site-header">
+  <a class="site-mark" href="/" aria-label={site.name}>
+    <span class="site-mark-text">{site.name}</span>
+  </a>
+  <p class="site-stamp" id="site-stamp" aria-live="polite">
+    <span class="site-stamp-fallback">--/--/---- --:--am {site.location}</span>
+  </p>
+  <nav class="site-nav" aria-label="Primary">
+    {
+      nav.map(({ label, href }) => (
+        <a href={href} class:list={[{ active: isActive(href) }]} aria-current={isActive(href) ? 'page' : undefined}>
+          {label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script is:inline define:vars={{ location: site.location }}>
+  (function () {
+    var el = document.getElementById('site-stamp');
+    if (!el) return;
+
+    function pad(n) {
+      return n < 10 ? '0' + n : String(n);
+    }
+
+    function render() {
+      var d = new Date();
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var ampm = h >= 12 ? 'pm' : 'am';
+      h = h % 12;
+      if (h === 0) h = 12;
+      el.textContent =
+        pad(d.getMonth() + 1) +
+        '/' +
+        pad(d.getDate()) +
+        '/' +
+        d.getFullYear() +
+        ' ' +
+        h +
+        ':' +
+        pad(m) +
+        ampm +
+        ' ' +
+        location;
+    }
+
+    render();
+    setInterval(render, 30000);
+  })();
+</script>
+
+<style>
+  .site-header {
+    text-align: center;
+    padding: var(--pad-top) 0 2.5rem;
+  }
+
+  .site-mark {
+    display: inline-block;
+    background: var(--mark);
+    color: var(--bg);
+    padding: 0.35rem 0.65rem;
+    text-decoration: none;
+    line-height: 1;
+  }
+
+  .site-mark:hover,
+  .site-mark:focus-visible {
+    text-decoration: none;
+    background: #bf4000;
+  }
+
+  .site-mark-text {
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .site-stamp {
+    margin: 0.85rem 0 0;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  .site-stamp-fallback {
+    visibility: hidden;
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .site-nav {
+    margin-top: 1.75rem;
+    font-size: 12px;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    text-transform: lowercase;
+  }
+
+  .site-nav a:hover,
+  .site-nav a:focus-visible,
+  .site-nav a.active {
+    text-decoration: underline;
+  }
+</style>
