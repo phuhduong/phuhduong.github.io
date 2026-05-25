@@ -16,11 +16,6 @@ import { projects } from '../../data/projects';
             </div>
             <p class="archive-desc">{project.description}</p>
             {
-              project.notes?.map((note) => (
-                <p class="archive-note">{note}</p>
-              ))
-            }
-            {
               project.href && (
                 <p class="archive-link">
                   <a href={project.href} target="_blank" rel="noopener noreferrer">
@@ -76,7 +71,6 @@ import { projects } from '../../data/projects';
     max-width: 36rem;
   }
 
-  .archive-note,
   .archive-link {
     margin: 0.75rem 0 0 3.5rem;
   }

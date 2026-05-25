@@ -1,33 +1,6 @@
----
-interface Props {
-  pagination?: {
-    current: number;
-    total: number;
-    prevHref?: string;
-    nextHref?: string;
-  };
-}
-
-const { pagination } = Astro.props;
----
-
 <section class="editorial">
   <div class="editorial-visual">
     <slot name="visual" />
-    {
-      pagination && (
-        <p class="editorial-pagination">
-          {pagination.current} of {pagination.total}
-          {pagination.nextHref ? (
-            <a href={pagination.nextHref} aria-label="Next project">
-              {' '}→
-            </a>
-          ) : (
-            <span aria-hidden="true"> →</span>
-          )}
-        </p>
-      )
-    }
   </div>
   <div class="editorial-copy">
     <slot />
@@ -65,26 +38,6 @@ const { pagination } = Astro.props;
     display: block;
   }
 
-  .editorial-pagination {
-    margin: 1.25rem 0 0;
-    font-size: 12px;
-    line-height: 1;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-  }
-
-  .editorial-pagination a {
-    text-decoration: none;
-  }
-
-  .editorial-pagination a:hover,
-  .editorial-pagination a:focus-visible {
-    text-decoration: underline;
-  }
-
   .editorial-copy {
     padding-top: 0;
     font-size: 12px;
@@ -102,18 +55,6 @@ const { pagination } = Astro.props;
 
   .editorial-copy :global(.copy-body p:last-child) {
     margin-bottom: 0;
-  }
-
-  .editorial-copy :global(.copy-note) {
-    margin: 1.25rem 0 0;
-  }
-
-  .editorial-copy :global(.copy-footer) {
-    margin-top: 2.5rem;
-  }
-
-  .editorial-copy :global(.copy-footer a) {
-    text-decoration: underline;
   }
 
   @media (max-width: 720px) {

@@ -7,4 +7,4 @@ npm install
 npm run dev
 ```
 
-`npm run build` outputs to `dist/` for deploy.
+Pushes to `main` deploy via GitHub Actions to https://phuhduong.github.io/

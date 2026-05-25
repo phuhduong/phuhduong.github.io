@@ -4,7 +4,6 @@ export type Project = {
   description: string;
   href?: string;
   linkLabel?: string;
-  notes?: string[];
 };
 
 export const projects: Project[] = [
