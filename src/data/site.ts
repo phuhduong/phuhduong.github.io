@@ -3,6 +3,7 @@ export const site = {
   email: 'phu.duong@princeton.edu',
   github: 'https://github.com/phuhduong',
   location: 'NJ',
+  timeZone: 'America/New_York',
   description:
     'Undergraduate at Princeton. Distributed systems, ML infrastructure, low-latency software.',
 } as const;

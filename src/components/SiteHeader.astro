@@ -28,7 +28,7 @@ function isActive(href: string): boolean {
   </nav>
 </header>
 
-<script is:inline define:vars={{ location: site.location }}>
+<script is:inline define:vars={{ location: site.location, timeZone: site.timeZone }}>
   (function () {
     var el = document.getElementById('site-stamp');
     if (!el) return;
@@ -37,26 +37,31 @@ function isActive(href: string): boolean {
       return n < 10 ? '0' + n : String(n);
     }
 
+    function part(parts, type) {
+      var p = parts.find(function (x) {
+        return x.type === type;
+      });
+      return p ? p.value : '';
+    }
+
     function render() {
-      var d = new Date();
-      var h = d.getHours();
-      var m = d.getMinutes();
-      var ampm = h >= 12 ? 'pm' : 'am';
-      h = h % 12;
-      if (h === 0) h = 12;
-      el.textContent =
-        pad(d.getMonth() + 1) +
-        '/' +
-        pad(d.getDate()) +
-        '/' +
-        d.getFullYear() +
-        ' ' +
-        h +
-        ':' +
-        pad(m) +
-        ampm +
-        ' ' +
-        location;
+      var parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: timeZone,
+        month: 'numeric',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      }).formatToParts(new Date());
+
+      var month = pad(Number(part(parts, 'month')));
+      var day = pad(Number(part(parts, 'day')));
+      var h = part(parts, 'hour');
+      var m = part(parts, 'minute');
+      var ampm = part(parts, 'dayPeriod').toLowerCase();
+
+      el.textContent = month + '/' + day + '/' + part(parts, 'year') + ' ' + h + ':' + m + ampm + ' ' + location;
     }
 
     render();
