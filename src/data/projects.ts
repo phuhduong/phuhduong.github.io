@@ -9,25 +9,25 @@ export type Project = {
 export const projects: Project[] = [
   {
     id: '01',
-    title: 'Bolt-on Attention Module for Improved Mamba Recall',
+    title: 'Lightweight Cross-Attention Memory Adapter for Mamba (PyTorch)',
     description:
-      'Built a lightweight memory module for Mamba that caches key hidden states from long inputs, improving BABILong recall accuracy from 24% to 54% while using far fewer trainable parameters than standard fine-tuning methods.',
+      'Engineered a lightweight cross-attention memory adapter for a Mamba-based LLM, storing high-loss token hidden states in a bounded KV cache to address the long-context recall bottleneck in state-space models. Improved mean accuracy on BABILong, a long-context entity-recall benchmark, from 24.3% to 54.4% while preserving the linear-time inference advantage of state-space models over Transformers.',
     href: '/papers/cos484_final.pdf',
     linkLabel: 'paper',
   },
   {
     id: '02',
-    title: 'Natural Language Circuit Component Selector',
+    title: 'Multi-Agent Circuit Component Sourcing System (TypeScript, Python)',
     description:
-      'Built a multi-agent LLM system that turns hardware requirements into PCB component recommendations, reducing an electrical engineering bottleneck from days to minutes.',
+      'Developed a multi-agent LLM system that translates natural language circuit requirements into sourced and priced PCB component lists, reducing an industry-wide hardware selection bottleneck from days to minutes. Won Best Business and Enterprise Hack at HackPrinceton out of 194 projects and 600+ participants.',
     href: 'https://github.com/phuhduong/Jigsaw',
     linkLabel: 'repo',
   },
   {
     id: '03',
-    title: 'Biometric-Controlled Melatonin Patch',
+    title: 'Predictive Melatonin Dosing System (TypeScript, Python, C++)',
     description:
-      'Built a melatonin patch that uses Google Health biometrics to predict overnight wake risk and optimize release rates for improved sleep continuity.',
+      'Developed a sleep optimization system to mitigate nocturnal awakenings, applying a logistic model to time-series Google Health biometric data to predict wake risk and deriving a personalized melatonin release curve via SLSQP constrained optimization. Achieved 2nd Best Hardware Hack at HackPrinceton, out of 87 projects and 250+ participants.',
     href: 'https://github.com/phuhduong/sleepsync',
     linkLabel: 'repo',
   },
